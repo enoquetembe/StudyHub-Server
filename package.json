@@ -1,0 +1,43 @@
+{
+  "name": "studyhub-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "lint": "eslint src  --ext .ts --fix",
+    "build": "tsup src --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "1.2.0",
+    "@types/bcryptjs": "2.4.2",
+    "@types/node": "20.2.5",
+    "@vitest/coverage-c8": "0.31.1",
+    "eslint": "8.41.0",
+    "prisma": "4.14.1",
+    "tsup": "6.7.0",
+    "tsx": "3.12.7",
+    "typescript": "5.0.4",
+    "vite-tsconfig-paths": "4.2.0",
+    "vitest": "0.31.1"
+  },
+  "dependencies": {
+    "@prisma/client": "4.14.1",
+    "@types/jsonwebtoken": "9.0.2",
+    "bcryptjs": "2.4.3",
+    "dotenv": "16.0.3",
+    "fastify": "4.17.0",
+    "jsonwebtoken": "9.0.0",
+    "zod": "3.21.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

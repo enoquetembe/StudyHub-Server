@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  
+  created_at DateTime  @default(now())
+
+  Courses Course[]
+}
+
+model Faculty {
+  id        String    @id @default(uuid())
+  name      String
+  created_at DateTime  @default(now())
+  
+  Courses   Course[]
+}
+
+model Course {
+  id          String        @id @default(uuid())
+  name        String
+  faculty     Faculty       @relation(fields: [faculty_id], references: [id])
+  faculty_id   String
+  created_at   DateTime      @default(now())
+  
+  Disciplines Discipline[]
+  Exams       Exam[]
+ 
+  student    Student    @relation(fields: [student_id], references: [id])
+  student_id  String
+}
+
+model Discipline {
+  id          String        @id @default(uuid())
+  name        String
+  course      Course        @relation(fields: [course_id], references: [id])
+  course_id    String
+  created_at   DateTime      @default(now())
+  
+  Exams       Exam[]
+}
+
+model Exam {
+  id            String      @id @default(uuid())
+  title         String
+  discipline    Discipline  @relation(fields: [discipline_id], references: [id])
+  discipline_id  String
+  created_at     DateTime    @default(now())
+  
+  Courses Course[]
+  Questions     Question[]
+}
+
+model Question {
+  id            String      @id @default(uuid())
+  content       String
+  exam          Exam        @relation(fields: [exam_id], references: [id])
+  exam_id        String
+  created_at     DateTime    @default(now())
+  
+  Answers       Answer[]
+}
+
+model Answer {
+  id            String      @id @default(uuid())
+  content       String
+  question      Question    @relation(fields: [question_id], references: [id])
+  question_id    String
+  created_at     DateTime    @default(now())
+}
+
